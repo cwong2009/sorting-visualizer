@@ -55,7 +55,6 @@ export function* playHistoryCall() {
 
 export function* playHistoryToCall(action: any) {
   let cur = yield select((state: SortDto) => state.cur);
-  console.log(cur, action.payload);
   let numSteps = action.payload - cur;
   if (numSteps !== 0) {
     const isForward = numSteps >= 0;
@@ -63,8 +62,6 @@ export function* playHistoryToCall(action: any) {
     if (isForward) {
       numSteps++;
     }
-    //console.log(isForward, numSteps);
-
     while (numSteps > 0) {
       yield call(isForward ? forwardStep : backwardStep);
       numSteps--;

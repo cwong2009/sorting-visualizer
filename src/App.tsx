@@ -9,12 +9,14 @@ import {
   SortStep,
   Status,
 } from "./model/sortElement";
-import { Slider } from "antd";
-import "antd/dist/antd.css";
+import { Button, Slider } from "antd";
+import "antd/dist/antd.dark.css";
+import "antd/dist/antd.compact.css";
 import { bubbleSort } from "./algorithm/bubbleSort";
 import { heapSort } from "./algorithm/heapSort";
+import { PlayCircleFilled } from "@ant-design/icons";
 
-const sampleSize = 50;
+const sampleSize = 100;
 
 function App() {
   const store: any = useStore();
@@ -153,7 +155,14 @@ function App() {
           <div className="slider-container">
             {SortData && SortData.history && (
               <Slider
-                marks={SortData.marks}
+                trackStyle={{ backgroundColor: "gray" }}
+                handleStyle={{
+                  borderColor: "gray",
+                  height: "20px",
+                  width: "20px",
+                  marginLeft: "0px",
+                  marginTop: "-8px",
+                }}
                 onChange={onSliderChange}
                 value={SortData.cur}
                 min={0}
@@ -166,22 +175,6 @@ function App() {
           </div>
           <div onClick={handleResume} className="button">
             Resume
-          </div>
-          <div
-            onClick={() => {
-              action("PLAY_HISTORY_TO", 0);
-            }}
-            className="button"
-          >
-            To 0
-          </div>
-          <div
-            onClick={() => {
-              action("PLAY_HISTORY_TO", 800);
-            }}
-            className="button"
-          >
-            To 4
           </div>
         </div>
       </div>

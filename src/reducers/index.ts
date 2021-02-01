@@ -50,7 +50,6 @@ function applyNextStep(state: SortDto, isForward: boolean): SortDto {
   const elements = [...state.elements];
 
   const step = isForward ? state.cur : state.cur - 1;
-  console.log("step", step);
   const nextStep = state.history[step];
   for (let element of elements.filter((e) => e.status !== Status.COMPELTE)) {
     element.status = Status.NORMAL;
