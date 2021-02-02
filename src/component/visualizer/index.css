@@ -15,7 +15,6 @@ body {
 .container {
   flex: 1 1 auto;
   background-color: #ffffff;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,7 +52,7 @@ body {
 
 .content {
   width: 100%;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -66,16 +65,17 @@ body {
 }
 
 .footer {
+  padding: 15px 15px 15px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
   width: 100%;
-  min-height:120px;
+  min-height: 70px;
   background-color: #282c34;
-  flex-shrink: 0;
-  padding: 15px 20px;
+  height: 4.5em;
+  /* padding: 15px 20px; */
 }
 
 .footer .button {

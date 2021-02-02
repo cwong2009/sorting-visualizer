@@ -19,6 +19,8 @@ import { bubbleSort } from "../../algorithm/bubbleSort";
 import { heapSort } from "../../algorithm/heapSort";
 import { Sort } from "@material-ui/icons";
 import { Button, Grid, Slider } from "@material-ui/core";
+import Div100vh from "react-div-100vh";
+import classes from "*.module.css";
 
 const sampleSize = 100;
 
@@ -95,7 +97,7 @@ function Visualizer() {
 
   return (
     <div className="body">
-      <div className="container">
+      <Div100vh className="container">
         <div className="content">
           {sortData &&
             sortData.elements &&
@@ -161,7 +163,7 @@ function Visualizer() {
             </Grid>
           )}
         </div>
-      </div>
+      </Div100vh>
     </div>
   );
 }
