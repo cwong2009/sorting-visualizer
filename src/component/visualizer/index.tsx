@@ -18,7 +18,7 @@ import {
 import { bubbleSort } from "../../algorithm/bubbleSort";
 import { heapSort } from "../../algorithm/heapSort";
 import { Sort } from "@material-ui/icons";
-import { Grid, Slider } from "@material-ui/core";
+import { Button, Grid, Slider } from "@material-ui/core";
 
 const sampleSize = 100;
 
@@ -127,43 +127,39 @@ function Visualizer() {
             })}
         </div>
         <div className="footer">
-          <div className="slider-container">
-            {sortData && sortData.history && (
-              //   <Slider
-              //     trackStyle={{ backgroundColor: "gray" }}
-              //     handleStyle={{
-              //       borderColor: "gray",
-              //       height: "20px",
-              //       width: "20px",
-              //       marginLeft: "0px",
-              //       marginTop: "-8px",
-              //     }}
-              //     onChange={onSliderChange}
-              //     value={SortData.cur}
-              //     min={0}
-              //     max={SortData.history.length - 1}
-              //   />
-              <Grid container spacing={2}>
-                <Grid item xs>
-                  <Slider
-                    min={0}
-                    max={sortData.history.length - 1}
-                    value={sortStep}
-                    onChange={onSliderChange}
-                  />
-                </Grid>
-                <Grid item>
-                  <Sort />
-                </Grid>
+          {sortData && sortData.history && (
+            <Grid container direction="row" spacing={2}>
+              <Grid item xs>
+                <Slider
+                  min={0}
+                  max={sortData.history.length - 1}
+                  value={sortData.cur}
+                  onChange={onSliderChange}
+                />
               </Grid>
-            )}
-          </div>
-          <div onClick={handleCancelSort} className="button">
-            Pause
-          </div>
-          <div onClick={handleResume} className="button">
-            Resume
-          </div>
+              <Grid item>
+                <Sort />
+              </Grid>
+              <Grid item>
+                <Button
+                  onClick={handleCancelSort}
+                  variant="contained"
+                  color="primary"
+                >
+                  Pause
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  onClick={handleResume}
+                  variant="contained"
+                  color="primary"
+                >
+                  Play
+                </Button>
+              </Grid>
+            </Grid>
+          )}
         </div>
       </div>
     </div>

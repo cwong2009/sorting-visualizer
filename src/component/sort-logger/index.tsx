@@ -31,7 +31,7 @@ export default function SortLogger() {
         <br />
         Cur: {sortData.cur}
         <br />
-        Speed: {sortData.speed}
+        Speed: {Math.abs(sortData.speed)}
       </div>
       {sortData &&
         sortData.history &&
