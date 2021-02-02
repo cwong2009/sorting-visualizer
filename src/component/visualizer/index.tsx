@@ -130,7 +130,7 @@ function Visualizer() {
         </div>
         <div className="footer">
           {sortData && sortData.history && (
-            <Grid container direction="row" spacing={2}>
+            <Grid container direction="row" spacing={2} alignItems="center">
               <Grid item xs>
                 <Slider
                   min={0}

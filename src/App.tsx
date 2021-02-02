@@ -14,7 +14,17 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import Visualizer from "./component/visualizer";
 import SortLogger from "./component/sort-logger";
-import { createMuiTheme, Hidden, ThemeProvider } from "@material-ui/core";
+import {
+  createMuiTheme,
+  FormControl,
+  Grid,
+  Hidden,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  ThemeProvider,
+} from "@material-ui/core";
 import { deepOrange, orange } from "@material-ui/core/colors";
 
 const drawerWidth = 180;
@@ -45,28 +55,67 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.default,
       padding: theme.spacing(3),
     },
+    title: {
+      flexGrow: 1,
+    },
   })
 );
 
 export default function App() {
   const classes = useStyles();
-
+  const [open, setOpen] = React.useState(false);
+  const [algorithm, setAlgorithm] = React.useState<string>("heap_sort");
   const darkTheme = createMuiTheme({
     palette: {
       type: "dark",
-      primary: {
-        main: orange[500],
-      },
-      secondary: {
-        main: deepOrange[900],
-      },
+      // primary: {
+      //   main: orange[500],
+      // },
+      // secondary: {
+      //   main: deepOrange[900],
+      // },
     },
   });
 
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setAlgorithm(event.target.value as string);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
       <div className={classes.root}>
-        <CssBaseline />
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
+            <Grid container justify="center">
+              <Grid item>
+                <Typography variant="h6" color="inherit" noWrap>
+                  <FormControl>
+                    <Select
+                      labelId="demo-controlled-open-select-label"
+                      id="demo-controlled-open-select"
+                      open={open}
+                      onClose={handleClose}
+                      onOpen={handleOpen}
+                      value={algorithm}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={"heap_sort"}>Heap Sort</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Typography>
+              </Grid>
+            </Grid>
+          </Toolbar>
+        </AppBar>
         <Hidden xsDown>
           <Drawer
             className={classes.drawer}
@@ -80,6 +129,7 @@ export default function App() {
             <Divider />
           </Drawer>
         </Hidden>
+        <div className={classes.toolbar} />
         <Visualizer />
       </div>
     </ThemeProvider>
