@@ -35,8 +35,19 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
     },
     appBar: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
+      [theme.breakpoints.up("xs")]: {
+        width: `calc(100% - ${drawerWidth}px)`,
+      },
+      [theme.breakpoints.up("xs")]: {
+        marginLeft: drawerWidth,
+      },
+
+      [theme.breakpoints.down("xs")]: {
+        width: "100%",
+      },
+      [theme.breakpoints.down("xs")]: {
+        marginLeft: "0px",
+      },
     },
     drawer: {
       width: drawerWidth,
