@@ -50,7 +50,9 @@ export function* playHistory() {
 }
 
 export function* playHistoryCall() {
-  playTask = yield fork(playHistory);
+  if (!playTask) {
+    playTask = yield fork(playHistory);
+  }
 }
 
 export function* playHistoryToCall(action: any) {
@@ -73,6 +75,7 @@ export function* playHistoryToCall(action: any) {
 
 function* pausePlay() {
   yield cancel(playTask);
+  playTask = null;
 }
 
 let playTask: any;
