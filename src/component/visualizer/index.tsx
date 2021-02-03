@@ -21,8 +21,7 @@ import { Sort } from "@material-ui/icons";
 import { Button, Grid, Slider } from "@material-ui/core";
 import Div100vh from "react-div-100vh";
 import classes from "*.module.css";
-
-const sampleSize = 100;
+import { sampleSize } from "../../App";
 
 function Visualizer() {
   const store: any = useStore();
@@ -38,26 +37,6 @@ function Visualizer() {
     (type: any, payload?: any) => store.dispatch({ type, payload }),
     [store]
   );
-
-  useEffect(() => {
-    const elements: SortElement[] = Array.from(Array(sampleSize).keys()).reduce(
-      (acc: SortElement[], n: number, idx: number) => {
-        const val = Math.random() * sampleSize + 1;
-        //const val = 10 - n;
-        acc.push({
-          val,
-          status: Status.NORMAL,
-          key: `${idx}_${val}`,
-        });
-        return acc;
-      },
-      []
-    );
-
-    // bubble sort
-    //bubbleSort(elements, action);
-    heapSort(elements, action);
-  }, []);
 
   const timeout = (ms: number) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -76,12 +55,18 @@ function Visualizer() {
       return "rgba(169, 92, 232, 0.8)";
     } else if (status === Status.SELECTED) {
       return "green";
-    } else if (status === Status.SWAP) {
+    } else if (status === Status.COMPARE) {
       return "red";
     } else if (status === Status.COMPELTE) {
       return "navy";
     } else if (status === Status.LARGEST) {
       return "yellow";
+    } else if (status === Status.SPLIT) {
+      return "green";
+    } else if (status === Status.MERGE) {
+      return "orange";
+    } else if (status === Status.ASSIGN_VALUE) {
+      return "red";
     }
   };
 
@@ -90,9 +75,9 @@ function Visualizer() {
   };
 
   useEffect(() => {
-    //if (action) {
-    action("PLAY_HISTORY_TO", sortStep);
-    //}
+    if (action) {
+      action("PLAY_HISTORY_TO", sortStep);
+    }
   }, [sortStep, action]);
 
   return (

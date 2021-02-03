@@ -14,7 +14,7 @@ export interface SortDto {
   elements: SortElement[];
   history: SortStep[];
   cur: number;
-  last: number;
+  algorithm: string;
   prev: number;
   speed: number;
   marks: any;
@@ -23,16 +23,22 @@ export interface SortDto {
 export enum Action {
   SWAP = "SWAP",
   HIGHLIGHT = "HIGHLIGHT",
+  SPLIT = "SPLIT",
+  MERGE = "MERGE",
   LARGEST = "LARGEST",
   COMPARE = "COMPARE",
   COMPELTE = "COMPELTE",
+  ASSIGN_VALUE = "ASSIGN_VALUE",
   OP = "OP",
 }
 
 export enum Status {
+  ASSIGN_VALUE = "ASSIGN_VALUE",
   NORMAL = "NORMAL",
   SELECTED = "SELECTED",
+  SPLIT = "SPLIT",
+  MERGE = "MERGE",
   LARGEST = "LARGEST",
-  SWAP = "SWAP",
+  COMPARE = "COMPARE",
   COMPELTE = "COMPELTE",
 }

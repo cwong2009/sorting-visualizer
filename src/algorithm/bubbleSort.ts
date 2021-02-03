@@ -2,11 +2,12 @@ import { SortStep, Action, SortDto, SortElement } from "../model/sortElement";
 
 export function bubbleSort(elements: SortElement[], action: any) {
   const arr = [...elements];
-  let isSwap = true;
+  let isSwapped = true;
   let steps: SortStep[] = [{ action: Action.OP, items: [], step: 0 }];
   let stepCnt = 1;
-  while (isSwap) {
-    isSwap = false;
+  let completeIndex = arr.length - 1;
+  while (isSwapped) {
+    isSwapped = false;
     for (let i = 0; i < arr.length - 1; i++) {
       steps.push({
         step: stepCnt++,
@@ -27,19 +28,26 @@ export function bubbleSort(elements: SortElement[], action: any) {
           action: Action.SWAP,
           items: [i, i + 1],
         } as SortStep);
-        isSwap = true;
+        isSwapped = true;
       }
     }
+    steps.push({
+      step: stepCnt++,
+      action: Action.COMPELTE,
+      items: [completeIndex--],
+    } as SortStep);
   }
+
   steps.push({
     step: stepCnt++,
-    action: Action.SWAP,
-    items: [],
+    action: Action.COMPELTE,
+    items: Array.from(Array(completeIndex + 1).keys()),
   } as SortStep);
 
   action("INIT", {
     elements,
     history: steps,
+    algorithm: "bubble_sort",
     cur: 0,
     prev: 0,
     speed: 0,

@@ -25,6 +25,7 @@ export function heapSort(elements: SortElement[], action: any) {
   action("INIT", {
     elements,
     history: steps,
+    algorithm: 'heap_sort',
     cur: 0,
     prev: 0,
     speed: 0,

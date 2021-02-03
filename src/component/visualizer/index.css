@@ -31,10 +31,12 @@ body {
   border-bottom: 1px solid gray;
   width: 100%;
   padding: 1px 5px;
+  flex-wrap: wrap;
 }
 
 .log-content-items {
   flex: 0 0 50px;
+  word-break: break-all;
 }
 
 .log-content-items.first {

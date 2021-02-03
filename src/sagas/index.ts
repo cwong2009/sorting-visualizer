@@ -25,8 +25,9 @@ let playTask: any;
 let timerTask: any;
 
 function* callSelfOnTimer(): any {
-  yield delay(1000);
-  yield put({ type: "CAL_SPEED" });
+  const interval = 100;
+  yield delay(interval);
+  yield put({ type: "CAL_SPEED", interval });
   yield call(callSelfOnTimer);
 }
 

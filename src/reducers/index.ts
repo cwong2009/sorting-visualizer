@@ -1,3 +1,4 @@
+import { stat } from "fs";
 import {
   Action,
   SortDto,
@@ -37,7 +38,7 @@ export default function element(state: SortDto = {} as any, action: any) {
     case "CAL_SPEED":
       const prev = state.prev;
       const cur = state.cur;
-      const speed = cur - prev;
+      const speed = (cur - prev) * (1000 / action.interval || 1000);
       return { ...state, prev: cur, speed };
     default:
       return state;
@@ -54,7 +55,17 @@ function applyNextStep(state: SortDto, isForward: boolean): SortDto {
   }
   if (nextStep.action === Action.HIGHLIGHT) {
     for (let i of nextStep.items) {
-      elements[i].status = Status.SELECTED;
+      if (elements[i].status !== Status.COMPELTE) {
+        elements[i].status = Status.SELECTED;
+      }
+    }
+  } else if (nextStep.action === Action.SPLIT) {
+    for (let i of nextStep.items) {
+      elements[i].status = Status.SPLIT;
+    }
+  } else if (nextStep.action === Action.MERGE) {
+    for (let i of nextStep.items) {
+      elements[i].status = Status.MERGE;
     }
   } else if (nextStep.action === Action.LARGEST) {
     for (let i of nextStep.items) {
@@ -62,12 +73,16 @@ function applyNextStep(state: SortDto, isForward: boolean): SortDto {
     }
   } else if (nextStep.action === Action.COMPARE) {
     for (let i of nextStep.items) {
-      elements[i].status = Status.SWAP;
+      elements[i].status = Status.COMPARE;
     }
   } else if (nextStep.action === Action.COMPELTE) {
     for (let i of nextStep.items) {
       elements[i].status = Status.COMPELTE;
     }
+  } else if (nextStep.action === Action.ASSIGN_VALUE) {
+    const [i, val, orgVal] = nextStep.items;
+    elements[i].val = isForward ? val : orgVal;
+    elements[i].status = Status.ASSIGN_VALUE;
   } else if (nextStep.action === Action.SWAP) {
     const [i, j] = nextStep.items;
     const temp = elements[i];
@@ -78,7 +93,6 @@ function applyNextStep(state: SortDto, isForward: boolean): SortDto {
   return {
     ...state,
     elements,
-    last: state.cur,
     cur: state.cur + (isForward ? 1 : -1),
   };
 }

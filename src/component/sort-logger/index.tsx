@@ -29,9 +29,9 @@ export default function SortLogger() {
         Steps:
         {sortData.history ? sortData.history.length : 0}
         <br />
-        Cur: {sortData.cur}
+        Current: {sortData.cur}
         <br />
-        Speed: {Math.abs(sortData.speed)}
+        Speed: {Math.abs(sortData.speed)} per second
       </div>
       {sortData &&
         sortData.history &&

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -26,6 +26,11 @@ import {
   ThemeProvider,
 } from "@material-ui/core";
 import { deepOrange, orange } from "@material-ui/core/colors";
+import { SortElement, Status } from "./model/sortElement";
+import { heapSort } from "./algorithm/heapSort";
+import { useStore } from "react-redux";
+import { bubbleSort } from "./algorithm/bubbleSort";
+import { mergeSort } from "./algorithm/mergeSort";
 
 const drawerWidth = 180;
 
@@ -72,9 +77,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+export const sampleSize = 100;
+
 export default function App() {
+  const store: any = useStore();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [numArray, setNumArray] = React.useState<number[] | null>(null);
   const [algorithm, setAlgorithm] = React.useState<string>("heap_sort");
   const darkTheme = createMuiTheme({
     palette: {
@@ -100,6 +109,48 @@ export default function App() {
     setOpen(true);
   };
 
+  const action = useCallback(
+    (type: any, payload?: any) => store.dispatch({ type, payload }),
+    [store]
+  );
+
+  useEffect(() => {
+    if (algorithm && action && numArray) {
+      const elements: SortElement[] = numArray.reduce(
+        (acc: SortElement[], val: number, idx: number) => {
+          acc.push({
+            val,
+            status: Status.NORMAL,
+            key: `${idx}_${val}`,
+          });
+          return acc;
+        },
+        []
+      );
+
+      if (algorithm === "bubble_sort") {
+        bubbleSort(elements, action);
+      } else if (algorithm === "heap_sort") {
+        heapSort(elements, action);
+      } else if (algorithm === "merge_sort") {
+        mergeSort(elements, action);
+      }
+    }
+  }, [algorithm, action, numArray]);
+
+  useEffect(() => {
+    setNumArray(
+      Array(sampleSize)
+        .fill(null)
+        .map(() => Math.random() * sampleSize + 1)
+    );
+    // setNumArray(
+    //   Array(sampleSize)
+    //     .fill(null)
+    //     .map((_, idx) => sampleSize - idx)
+    // );
+  }, []);
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -120,6 +171,8 @@ export default function App() {
                       onChange={handleChange}
                     >
                       <MenuItem value={"heap_sort"}>Heap Sort</MenuItem>
+                      <MenuItem value={"bubble_sort"}>Bubble Sort</MenuItem>
+                      <MenuItem value={"merge_sort"}>Merge Sort</MenuItem>
                     </Select>
                   </FormControl>
                 </Typography>
