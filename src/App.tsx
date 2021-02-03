@@ -44,14 +44,14 @@ const useStyles = makeStyles((theme: Theme) =>
         width: `calc(100% - ${drawerWidth}px)`,
       },
       [theme.breakpoints.up("xs")]: {
-        marginLeft: drawerWidth,
+        paddingLeft: drawerWidth,
       },
 
       [theme.breakpoints.down("xs")]: {
         width: "100%",
       },
       [theme.breakpoints.down("xs")]: {
-        marginLeft: "0px",
+        paddingLeft: "0px",
       },
     },
     drawer: {
