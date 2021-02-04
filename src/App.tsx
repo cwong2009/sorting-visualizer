@@ -116,6 +116,7 @@ export default function App() {
   );
 
   useEffect(() => {
+    action("PAUSE_HISTORY");
     if (algorithm && action && numArray) {
       const elements: SortElement[] = numArray.reduce(
         (acc: SortElement[], val: number, idx: number) => {
