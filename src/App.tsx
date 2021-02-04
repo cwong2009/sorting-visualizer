@@ -31,6 +31,7 @@ import { heapSort } from "./algorithm/heapSort";
 import { useStore } from "react-redux";
 import { bubbleSort } from "./algorithm/bubbleSort";
 import { mergeSort } from "./algorithm/mergeSort";
+import { insertionSort } from "./algorithm/insertionSort";
 
 const drawerWidth = 180;
 
@@ -134,6 +135,8 @@ export default function App() {
         heapSort(elements, action);
       } else if (algorithm === "merge_sort") {
         mergeSort(elements, action);
+      } else if (algorithm === "insertion_sort") {
+        insertionSort(elements, action);
       }
     }
   }, [algorithm, action, numArray]);
@@ -142,7 +145,7 @@ export default function App() {
     setNumArray(
       Array(sampleSize)
         .fill(null)
-        .map(() => Math.random() * sampleSize + 1)
+        .map(() => Math.floor(Math.random() * sampleSize) + 1)
     );
     // setNumArray(
     //   Array(sampleSize)
@@ -173,6 +176,9 @@ export default function App() {
                       <MenuItem value={"heap_sort"}>Heap Sort</MenuItem>
                       <MenuItem value={"bubble_sort"}>Bubble Sort</MenuItem>
                       <MenuItem value={"merge_sort"}>Merge Sort</MenuItem>
+                      <MenuItem value={"insertion_sort"}>
+                        Insertion Sort
+                      </MenuItem>
                     </Select>
                   </FormControl>
                 </Typography>
