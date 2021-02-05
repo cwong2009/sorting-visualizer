@@ -78,14 +78,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const sampleSize = 100;
-
 export default function App() {
   const store: any = useStore();
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [modeOpen, setModeOpen] = React.useState(false);
+  const [algorithmOpen, setAlgorithmOpen] = React.useState(false);
+  const [sampleSizeOpen, setSampleSizeOpen] = React.useState(false);
   const [numArray, setNumArray] = React.useState<number[] | null>(null);
+  const [sampleSize, setSampleSize] = React.useState<number>(100);
   const [algorithm, setAlgorithm] = React.useState<string>("heap_sort");
+  const [mode, setMode] = React.useState<string>("random");
   const darkTheme = createMuiTheme({
     palette: {
       type: "dark",
@@ -97,18 +99,6 @@ export default function App() {
       // },
     },
   });
-
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setAlgorithm(event.target.value as string);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const action = useCallback(
     (type: any, payload?: any) => store.dispatch({ type, payload }),
@@ -146,14 +136,18 @@ export default function App() {
     setNumArray(
       Array(sampleSize)
         .fill(null)
-        .map(() => Math.floor(Math.random() * sampleSize) + 1)
+        .map((_, idx: number) =>
+          mode === "random"
+            ? Math.floor(Math.random() * sampleSize) + 1
+            : sampleSize - idx
+        )
     );
     // setNumArray(
     //   Array(sampleSize)
     //     .fill(null)
     //     .map((_, idx) => sampleSize - idx)
     // );
-  }, []);
+  }, [sampleSize, mode]);
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -161,18 +155,18 @@ export default function App() {
       <div className={classes.root}>
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
-            <Grid container justify="center">
+            <Grid container justify="center" spacing={2}>
               <Grid item>
                 <Typography variant="h6" color="inherit" noWrap>
                   <FormControl>
                     <Select
-                      labelId="demo-controlled-open-select-label"
-                      id="demo-controlled-open-select"
-                      open={open}
-                      onClose={handleClose}
-                      onOpen={handleOpen}
+                      open={algorithmOpen}
+                      onClose={() => setAlgorithmOpen(false)}
+                      onOpen={() => setAlgorithmOpen(true)}
                       value={algorithm}
-                      onChange={handleChange}
+                      onChange={(event: any) =>
+                        setAlgorithm(event.target.value as string)
+                      }
                     >
                       <MenuItem value={"heap_sort"}>Heap Sort</MenuItem>
                       <MenuItem value={"bubble_sort"}>Bubble Sort</MenuItem>
@@ -180,6 +174,41 @@ export default function App() {
                       <MenuItem value={"insertion_sort"}>
                         Insertion Sort
                       </MenuItem>
+                    </Select>
+                  </FormControl>
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="h6" color="inherit" noWrap>
+                  <FormControl>
+                    <Select
+                      open={sampleSizeOpen}
+                      onClose={() => setSampleSizeOpen(false)}
+                      onOpen={() => setSampleSizeOpen(true)}
+                      value={sampleSize}
+                      onChange={(event: any) =>
+                        setSampleSize(event.target.value)
+                      }
+                    >
+                      <MenuItem value={10}>Size 10</MenuItem>
+                      <MenuItem value={100}>Size 100</MenuItem>
+                      <MenuItem value={200}>Size 200</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="h6" color="inherit" noWrap>
+                  <FormControl>
+                    <Select
+                      open={modeOpen}
+                      onClose={() => setModeOpen(false)}
+                      onOpen={() => setModeOpen(true)}
+                      value={mode}
+                      onChange={(event: any) => setMode(event.target.value)}
+                    >
+                      <MenuItem value={"random"}>Random</MenuItem>
+                      <MenuItem value={"reversed"}>Reversed</MenuItem>
                     </Select>
                   </FormControl>
                 </Typography>

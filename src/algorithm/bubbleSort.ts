@@ -5,15 +5,9 @@ export function bubbleSort(elements: SortElement[], action: any) {
   let isSwapped = true;
   let steps: SortStep[] = [{ action: Action.OP, items: [], step: 0 }];
   let stepCnt = 1;
-  let completeIndex = arr.length - 1;
   while (isSwapped) {
     isSwapped = false;
     for (let i = 0; i < arr.length - 1; i++) {
-      steps.push({
-        step: stepCnt++,
-        action: Action.HIGHLIGHT,
-        items: [i, i + 1],
-      } as SortStep);
       if (arr[i].val > arr[i + 1].val) {
         steps.push({
           step: stepCnt++,
@@ -31,17 +25,12 @@ export function bubbleSort(elements: SortElement[], action: any) {
         isSwapped = true;
       }
     }
-    steps.push({
-      step: stepCnt++,
-      action: Action.COMPELTE,
-      items: [completeIndex--],
-    } as SortStep);
   }
 
   steps.push({
     step: stepCnt++,
-    action: Action.COMPELTE,
-    items: Array.from(Array(completeIndex + 1).keys()),
+    action: Action.OP,
+    items: [],
   } as SortStep);
 
   action("INIT", {

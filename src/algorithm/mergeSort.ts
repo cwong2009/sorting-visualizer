@@ -9,6 +9,12 @@ export function mergeSort(elements: SortElement[], action: any) {
 
   sort(arr, 0, arr.length - 1, steps);
 
+  steps.push({
+    step: stepCnt++,
+    action: Action.OP,
+    items: [],
+  } as SortStep);
+
   action("INIT", {
     elements,
     history: steps,
@@ -19,35 +25,18 @@ export function mergeSort(elements: SortElement[], action: any) {
   } as SortDto);
 }
 
-function range(start: number, end: number) {
-  return Array(end - start + 1)
-    .fill(null)
-    .map((_, idx) => start + idx);
-}
+// function range(start: number, end: number) {
+//   return Array(end - start + 1)
+//     .fill(null)
+//     .map((_, idx) => start + idx);
+// }
 
 function sort(arr: SortElement[], l: number, r: number, steps: SortStep[]) {
   if (l < r) {
     const m = Math.floor((l + r) / 2);
 
-    steps.push({
-      step: stepCnt++,
-      action: Action.SPLIT,
-      items: range(l, m),
-    } as SortStep);
     sort(arr, l, m, steps);
-
-    steps.push({
-      step: stepCnt++,
-      action: Action.SPLIT,
-      items: range(m + 1, r),
-    } as SortStep);
     sort(arr, m + 1, r, steps);
-
-    steps.push({
-      step: stepCnt++,
-      action: Action.MERGE,
-      items: range(l, m),
-    } as SortStep);
     merge(arr, l, m, r, steps);
   }
 }
@@ -113,10 +102,4 @@ function merge(
     } as SortStep);
     k++;
   }
-
-  steps.push({
-    step: stepCnt++,
-    action: Action.COMPELTE,
-    items: range(l, r),
-  } as SortStep);
 }

@@ -8,11 +8,6 @@ export function insertionSort(elements: SortElement[], action: any) {
   for (let i = 1; i < arr.length; i++) {
     let j = i - 1;
     let key = arr[i];
-    steps.push({
-      step: stepCnt++,
-      action: Action.HIGHLIGHT,
-      items: [i],
-    } as SortStep);
     while (j >= 0 && arr[j].val > key.val) {
       steps.push({
         step: stepCnt++,
@@ -37,8 +32,8 @@ export function insertionSort(elements: SortElement[], action: any) {
 
   steps.push({
     step: stepCnt++,
-    action: Action.COMPELTE,
-    items: Array.from(Array(arr.length).keys()),
+    action: Action.OP,
+    items: [],
   } as SortStep);
 
   action("INIT", {

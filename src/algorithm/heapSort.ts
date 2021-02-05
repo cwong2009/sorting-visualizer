@@ -18,14 +18,14 @@ export function heapSort(elements: SortElement[], action: any) {
 
   steps.push({
     step: stepCnt++,
-    action: Action.SWAP,
+    action: Action.OP,
     items: [],
   } as SortStep);
 
   action("INIT", {
     elements,
     history: steps,
-    algorithm: 'heap_sort',
+    algorithm: "heap_sort",
     cur: 0,
     prev: 0,
     speed: 0,
@@ -38,11 +38,6 @@ function heapify(arr: SortElement[], n: number, i: number, steps: SortStep[]) {
   let r = 2 * i + 2;
   let largest = i;
   if (l < n) {
-    steps.push({
-      step: steps.length,
-      action: Action.HIGHLIGHT,
-      items: [l, largest],
-    } as SortStep);
     if (arr[l].val > arr[largest].val) {
       steps.push({
         step: steps.length,
@@ -58,11 +53,6 @@ function heapify(arr: SortElement[], n: number, i: number, steps: SortStep[]) {
     }
   }
   if (r < n) {
-    steps.push({
-      step: steps.length,
-      action: Action.HIGHLIGHT,
-      items: [r, largest],
-    } as SortStep);
     if (arr[r].val > arr[largest].val) {
       steps.push({
         step: steps.length,
@@ -109,11 +99,7 @@ function sort(arr: SortElement[], n: number, steps: SortStep[]) {
       items: [i, 0],
     } as SortStep);
     [arr[0], arr[i]] = [arr[i], arr[0]];
-    steps.push({
-      step: steps.length,
-      action: Action.COMPELTE,
-      items: [i],
-    } as SortStep);
+
     heapify(arr, i, 0, steps);
   }
 }

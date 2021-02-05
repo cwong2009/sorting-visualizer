@@ -50,34 +50,16 @@ function applyNextStep(state: SortDto, isForward: boolean): SortDto {
 
   const step = isForward ? state.cur : state.cur - 1;
   const nextStep = state.history[step];
-  for (let element of elements.filter((e) => e.status !== Status.COMPELTE)) {
+  for (let element of elements) {
     element.status = Status.NORMAL;
   }
-  if (nextStep.action === Action.HIGHLIGHT) {
-    for (let i of nextStep.items) {
-      if (elements[i].status !== Status.COMPELTE) {
-        elements[i].status = Status.SELECTED;
-      }
-    }
-  } else if (nextStep.action === Action.SPLIT) {
-    for (let i of nextStep.items) {
-      elements[i].status = Status.SPLIT;
-    }
-  } else if (nextStep.action === Action.MERGE) {
-    for (let i of nextStep.items) {
-      elements[i].status = Status.MERGE;
-    }
-  } else if (nextStep.action === Action.LARGEST) {
+  if (nextStep.action === Action.LARGEST) {
     for (let i of nextStep.items) {
       elements[i].status = Status.LARGEST;
     }
   } else if (nextStep.action === Action.COMPARE) {
     for (let i of nextStep.items) {
       elements[i].status = Status.COMPARE;
-    }
-  } else if (nextStep.action === Action.COMPELTE) {
-    for (let i of nextStep.items) {
-      elements[i].status = Status.COMPELTE;
     }
   } else if (nextStep.action === Action.ASSIGN_VALUE) {
     const [i, val, orgVal] = nextStep.items;
@@ -88,6 +70,8 @@ function applyNextStep(state: SortDto, isForward: boolean): SortDto {
     const temp = elements[i];
     elements[i] = elements[j];
     elements[j] = temp;
+    elements[i].status = Status.SWAP;
+    elements[j].status = Status.SWAP;
   }
 
   return {

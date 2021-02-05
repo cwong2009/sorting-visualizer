@@ -22,12 +22,8 @@ export interface SortDto {
 
 export enum Action {
   SWAP = "SWAP",
-  HIGHLIGHT = "HIGHLIGHT",
-  SPLIT = "SPLIT",
-  MERGE = "MERGE",
   LARGEST = "LARGEST",
   COMPARE = "COMPARE",
-  COMPELTE = "COMPELTE",
   ASSIGN_VALUE = "ASSIGN_VALUE",
   OP = "OP",
 }
@@ -35,10 +31,7 @@ export enum Action {
 export enum Status {
   ASSIGN_VALUE = "ASSIGN_VALUE",
   NORMAL = "NORMAL",
-  SELECTED = "SELECTED",
-  SPLIT = "SPLIT",
-  MERGE = "MERGE",
   LARGEST = "LARGEST",
   COMPARE = "COMPARE",
-  COMPELTE = "COMPELTE",
+  SWAP = "SWAP",
 }

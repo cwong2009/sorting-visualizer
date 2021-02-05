@@ -21,7 +21,6 @@ import { Sort } from "@material-ui/icons";
 import { Button, Grid, Slider } from "@material-ui/core";
 import Div100vh from "react-div-100vh";
 import classes from "*.module.css";
-import { sampleSize } from "../../App";
 
 function Visualizer() {
   const store: any = useStore();
@@ -52,19 +51,13 @@ function Visualizer() {
 
   const getStatusColor = (status: Status) => {
     if (status === Status.NORMAL) {
-      return "rgba(169, 92, 232, 0.8)";
-    } else if (status === Status.SELECTED) {
-      return "green";
+      return "#dc63e0";
     } else if (status === Status.COMPARE) {
+      return "pink";
+    } else if (status === Status.SWAP) {
       return "red";
-    } else if (status === Status.COMPELTE) {
-      return "navy";
     } else if (status === Status.LARGEST) {
       return "yellow";
-    } else if (status === Status.SPLIT) {
-      return "green";
-    } else if (status === Status.MERGE) {
-      return "orange";
     } else if (status === Status.ASSIGN_VALUE) {
       return "red";
     }
@@ -101,7 +94,7 @@ function Visualizer() {
                   <div
                     className="element"
                     style={{
-                      height: `${(100 * val) / sampleSize}%`,
+                      height: `${(100 * val) / sortData.elements.length}%`,
                       flex: "1 0 auto",
                       marginLeft: "1px",
                       backgroundColor: getStatusColor(status),
