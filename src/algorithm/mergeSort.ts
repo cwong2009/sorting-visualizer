@@ -25,11 +25,11 @@ export function mergeSort(elements: SortElement[], action: any) {
   } as SortDto);
 }
 
-// function range(start: number, end: number) {
-//   return Array(end - start + 1)
-//     .fill(null)
-//     .map((_, idx) => start + idx);
-// }
+function range(start: number, end: number) {
+  return Array(end - start + 1)
+    .fill(null)
+    .map((_, idx) => start + idx);
+}
 
 function sort(arr: SortElement[], l: number, r: number, steps: SortStep[]) {
   if (l < r) {
@@ -48,6 +48,12 @@ function merge(
   r: number,
   steps: SortStep[]
 ) {
+  steps.push({
+    step: stepCnt++,
+    action: Action.HIGHLIGHT,
+    items: range(l, r),
+  } as SortStep);
+
   const n1 = m - l + 1;
   const n2 = r - m;
   const orgArr = Array(n1 + n2);

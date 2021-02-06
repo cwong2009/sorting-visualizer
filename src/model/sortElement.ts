@@ -22,7 +22,7 @@ export interface SortDto {
 
 export enum Action {
   SWAP = "SWAP",
-  LARGEST = "LARGEST",
+  HIGHLIGHT = "HIGHLIGHT",
   COMPARE = "COMPARE",
   ASSIGN_VALUE = "ASSIGN_VALUE",
   OP = "OP",
@@ -31,7 +31,7 @@ export enum Action {
 export enum Status {
   ASSIGN_VALUE = "ASSIGN_VALUE",
   NORMAL = "NORMAL",
-  LARGEST = "LARGEST",
+  HIGHLIGHT = "HIGHLIGHT",
   COMPARE = "COMPARE",
   SWAP = "SWAP",
 }

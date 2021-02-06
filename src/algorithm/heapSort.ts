@@ -47,7 +47,7 @@ function heapify(arr: SortElement[], n: number, i: number, steps: SortStep[]) {
       largest = l;
       steps.push({
         step: steps.length,
-        action: Action.LARGEST,
+        action: Action.HIGHLIGHT,
         items: [largest],
       } as SortStep);
     }
@@ -62,7 +62,7 @@ function heapify(arr: SortElement[], n: number, i: number, steps: SortStep[]) {
       largest = r;
       steps.push({
         step: steps.length,
-        action: Action.LARGEST,
+        action: Action.HIGHLIGHT,
         items: [largest],
       } as SortStep);
     }

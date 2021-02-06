@@ -56,7 +56,7 @@ function Visualizer() {
       return "pink";
     } else if (status === Status.SWAP) {
       return "red";
-    } else if (status === Status.LARGEST) {
+    } else if (status === Status.HIGHLIGHT) {
       return "yellow";
     } else if (status === Status.ASSIGN_VALUE) {
       return "red";
@@ -111,6 +111,8 @@ function Visualizer() {
             <Grid container direction="row" spacing={2} alignItems="center">
               <Grid item xs>
                 <Slider
+                  valueLabelDisplay="auto"
+                  step={1}
                   min={0}
                   max={sortData.history.length - 1}
                   value={sortData.cur}

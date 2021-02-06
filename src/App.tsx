@@ -32,6 +32,7 @@ import { useStore } from "react-redux";
 import { bubbleSort } from "./algorithm/bubbleSort";
 import { mergeSort } from "./algorithm/mergeSort";
 import { insertionSort } from "./algorithm/insertionSort";
+import { quickSort } from "./algorithm/quickSort";
 
 const drawerWidth = 180;
 
@@ -128,6 +129,8 @@ export default function App() {
         mergeSort(elements, action);
       } else if (algorithm === "insertion_sort") {
         insertionSort(elements, action);
+      } else if (algorithm === "quick_sort") {
+        quickSort(elements, action);
       }
     }
   }, [algorithm, action, numArray]);
@@ -174,6 +177,7 @@ export default function App() {
                       <MenuItem value={"insertion_sort"}>
                         Insertion Sort
                       </MenuItem>
+                      <MenuItem value={"quick_sort"}>Quick Sort</MenuItem>
                     </Select>
                   </FormControl>
                 </Typography>

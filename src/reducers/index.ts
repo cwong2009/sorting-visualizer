@@ -53,9 +53,9 @@ function applyNextStep(state: SortDto, isForward: boolean): SortDto {
   for (let element of elements) {
     element.status = Status.NORMAL;
   }
-  if (nextStep.action === Action.LARGEST) {
+  if (nextStep.action === Action.HIGHLIGHT) {
     for (let i of nextStep.items) {
-      elements[i].status = Status.LARGEST;
+      elements[i].status = Status.HIGHLIGHT;
     }
   } else if (nextStep.action === Action.COMPARE) {
     for (let i of nextStep.items) {
