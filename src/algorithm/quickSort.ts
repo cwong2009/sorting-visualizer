@@ -53,6 +53,11 @@ function partitionRandom(
   [arr[pivotIndex], arr[high]] = [arr[high], arr[pivotIndex]];
   steps.push({
     step: stepCnt++,
+    action: Action.HIGHLIGHT,
+    items: [pivotIndex],
+  } as SortStep);
+  steps.push({
+    step: stepCnt++,
     action: Action.SWAP,
     items: [pivotIndex, high],
   } as SortStep);

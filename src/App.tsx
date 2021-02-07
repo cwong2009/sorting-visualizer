@@ -33,6 +33,7 @@ import { bubbleSort } from "./algorithm/bubbleSort";
 import { mergeSort } from "./algorithm/mergeSort";
 import { insertionSort } from "./algorithm/insertionSort";
 import { quickSort } from "./algorithm/quickSort";
+import { timSort } from "./algorithm/timSort";
 
 const drawerWidth = 180;
 
@@ -131,6 +132,8 @@ export default function App() {
         insertionSort(elements, action);
       } else if (algorithm === "quick_sort") {
         quickSort(elements, action);
+      } else if (algorithm === "tim_sort") {
+        timSort(elements, action);
       }
     }
   }, [algorithm, action, numArray]);
@@ -172,6 +175,7 @@ export default function App() {
                       }
                     >
                       <MenuItem value={"heap_sort"}>Heap Sort</MenuItem>
+                      <MenuItem value={"tim_sort"}>Tim Sort</MenuItem>
                       <MenuItem value={"bubble_sort"}>Bubble Sort</MenuItem>
                       <MenuItem value={"merge_sort"}>Merge Sort</MenuItem>
                       <MenuItem value={"insertion_sort"}>
