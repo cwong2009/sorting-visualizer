@@ -34,6 +34,7 @@ import { mergeSort } from "./algorithm/mergeSort";
 import { insertionSort } from "./algorithm/insertionSort";
 import { quickSort } from "./algorithm/quickSort";
 import { timSort } from "./algorithm/timSort";
+import { shellSort } from "./algorithm/shellSort";
 
 const drawerWidth = 180;
 
@@ -134,6 +135,8 @@ export default function App() {
         quickSort(elements, action);
       } else if (algorithm === "tim_sort") {
         timSort(elements, action);
+      } else if (algorithm === "shell_sort") {
+        shellSort(elements, action);
       }
     }
   }, [algorithm, action, numArray]);
@@ -182,6 +185,7 @@ export default function App() {
                         Insertion Sort
                       </MenuItem>
                       <MenuItem value={"quick_sort"}>Quick Sort</MenuItem>
+                      <MenuItem value={"shell_sort"}>Shell Sort</MenuItem>
                     </Select>
                   </FormControl>
                 </Typography>
